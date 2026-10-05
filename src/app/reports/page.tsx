@@ -73,8 +73,12 @@ function ReportsContent() {
   const [startups, setStartups] = useState<Record<string, CompleteStartupData>>({});
   const [selectedId, setSelectedId] = useState(startupParam);
   const [shared, setShared] = useState(false);
+  const [generatedAt, setGeneratedAt] = useState('');
 
-  useEffect(() => { setStartups(getStoredStartups()); }, []);
+  useEffect(() => {
+    setStartups(getStoredStartups());
+    setGeneratedAt(new Date().toLocaleString());
+  }, []);
 
   const data = startups[selectedId] || demoDatabase[selectedId] || demoDatabase['campusbite-ai'];
   if (!data) return null;
@@ -996,7 +1000,7 @@ function ReportsContent() {
             <div>
               <p className="text-xs font-black text-white print:text-black">StartupIQ — AI Co-Founder Platform</p>
               <p className="text-[10px] text-slate-500 print:text-gray-500">Complete Intelligence Dossier · Report ID: {startup.id}</p>
-              <p className="text-[10px] text-slate-500 print:text-gray-500">Generated: {new Date().toLocaleString()}</p>
+              <p className="text-[10px] text-slate-500 print:text-gray-500">Generated: {generatedAt}</p>
             </div>
             <div className="flex items-center gap-2 text-emerald-400 print:text-emerald-700">
               <ShieldCheck className="w-5 h-5" />
